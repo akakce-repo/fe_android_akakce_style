@@ -1,19 +1,20 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
-
+        targetSdk 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -26,10 +27,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+        useIR = true
         freeCompilerArgs += [
                 "-P",
                 "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         ]
+    }
+    buildFeatures{
+        compose true
     }
 
     packagingOptions {
